@@ -8,7 +8,19 @@ services:
   ports:
     - 8000:8000
   volumes:
-    - ./app:/app
+    - ./src/app:/app
+    - ./development/php/laravel.ini:/usr/local/etc/php/conf.d/laravel.ini
+
+ webserver:
+  image: httpd:2.4.47
+  container_name: ReverseProxy
+  restart: unless-stopped
+  tty: true
+  ports:
+   - 80:80
+   - 443:443
+  volumes:
+   - ./development/rp/conf.d/:/etc/apache2/conf.d/
 
  db:
   container_name: db
@@ -18,10 +30,11 @@ services:
   ports:
    - 3306:3306
   environment:
-   MYSQL_DATABASE: 2fa
+   MYSQL_DATABASE: practico
    MYSQL_ROOT_PASSWORD: root1234
    SERVICE_TAGS: dev
    SERVICE_NAME: mysql
   volumes:
-   - ./mysql:/var/lib/mysql/
-   
+   - ./mysql/data:/var/lib/mysql/
+   - ./development/mysql/my.cnf:/etc/mysql/my.cnf
+
