@@ -20,6 +20,7 @@ services:
    - 80:80
    - 443:443
   volumes:
+   - ./development/rp/conf/:/usr/local/apache2/conf/
    - ./development/rp/conf.d/:/usr/local/apache2/conf.d/
 
  db:
