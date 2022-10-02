@@ -13,14 +13,14 @@ services:
 
  webserver:
   image: httpd:2.4.47
-  container_name: ReverseProxy
+  container_name: rp
   restart: unless-stopped
   tty: true
   ports:
    - 80:80
    - 443:443
   volumes:
-   - ./development/rp/conf.d/:/etc/apache2/conf.d/
+   - ./development/rp/conf.d/:/usr/local/apache2/conf.d/
 
  db:
   container_name: db
